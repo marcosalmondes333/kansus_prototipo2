@@ -1,13 +1,13 @@
 import { useState } from "react";
 
-export default function Login() {
+export default function Register() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
 
-  const handleLogin = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
 
-    const res = await fetch("http://localhost:5007/auth/login", {
+    const res = await fetch("http://localhost:5007/auth/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, senha })
@@ -16,17 +16,16 @@ export default function Login() {
     const data = await res.json();
 
     if (!res.ok) {
-      alert(data.message || "Erro no login");
+      alert(data.message || "Erro no cadastro");
       return;
     }
 
-    localStorage.setItem("token", data.token);
-    alert("Login realizado com sucesso");
+    alert("Usuário cadastrado com sucesso");
   };
 
   return (
-    <form onSubmit={handleLogin}>
-      <h2>Login</h2>
+    <form onSubmit={handleRegister}>
+      <h2>Cadastro</h2>
 
       <input
         type="email"
@@ -42,7 +41,7 @@ export default function Login() {
         onChange={(e) => setSenha(e.target.value)}
       />
 
-      <button type="submit">Entrar</button>
+      <button type="submit">Cadastrar</button>
     </form>
   );
 }
